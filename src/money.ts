@@ -1,26 +1,31 @@
-export default abstract class Money {
+export default class Money {
   protected amount: number;
+  protected currency: string;
 
-  constructor(amount: number) {
+  constructor(amount: number, currency: string) {
     this.amount = amount;
+    this.currency = currency;
   }
 
   public static dollar(amount: number): Money {
-    return new Dollar(amount);
+    return new Money(amount, 'USD');
   }
 
-  public static franc(amount: number) {
-    return new Franc(amount);
+  public static franc(amount: number): Money {
+    return new Money(amount, 'CHF');
   }
 
-  public abstract times(amount: number): Money;
+  public times(multiplier: number) {
+    return new Money(this.amount * multiplier, this.currency);
+  }
+
+  public getCurrency() {
+    return this.currency;
+  }
 
   public equals(money: Money) {
-    return this.amount === money.amount && this.constructor.name === money.constructor.name; // money에서 private 변수인 amount에 접근 가능. Money 클래스 안이니까.
+    return this.amount === money.amount && this.getCurrency() === money.getCurrency(); // money에서 private 변수인 amount에 접근 가능. Money 클래스 안이니까.
   }
 }
-
-import Dollar from './dollar'; // 순환 참조 문제가 발생하기 때문에 아래에서 import 해줘야 함
-import Franc from './franc';
 
 
