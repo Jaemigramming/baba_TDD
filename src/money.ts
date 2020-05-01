@@ -24,7 +24,7 @@ export default class Money {
   }
 
   public equals(money: Money) {
-    return this.amount === money.amount && this.getCurrency() === money.getCurrency(); // money에서 private 변수인 amount에 접근 가능. Money 클래스 안이니까.
+    return this.amount === money.amount && this.getCurrency() === money.getCurrency();
   }
 }
 
